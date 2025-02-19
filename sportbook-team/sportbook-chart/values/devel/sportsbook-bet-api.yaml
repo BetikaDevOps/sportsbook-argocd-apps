@@ -3,7 +3,7 @@ namespace: devel
 
 image:
   repository: nginx
-  tag: "stable-alpine"
+  tag: latest #"stable-alpine"
 
 replicaCount: 1
 
