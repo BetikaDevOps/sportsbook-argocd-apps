@@ -3,6 +3,7 @@ namespace: devel
 
 image:
   repository: nginx
+  pullPolicy: IfNotPresent
   tag: latest #"stable-alpine"
 
 replicaCount: 1
