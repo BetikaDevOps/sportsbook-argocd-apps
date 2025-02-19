@@ -1,0 +1,71 @@
+appName: dev-cashout-engine
+namespace: devel #sportsbook
+
+image:
+  repository: caddy
+  tag: builder-alpine
+
+replicaCount: 2
+
+configMap:
+  name: dev-cashout-engine-config
+
+envVars:
+  BETIKA_AFRICA_SUPPORT: "true"
+  SMS_DISABLED: "1"
+  ALLOWED_VARIATION_IN_PERCENTAGE: "33"
+  APP_ENV: "DEV"
+  APP_NAME: "CASHOUT-ENGINE"
+  CASHOUT_EXCHANGE: "cashout_bets"
+  CASHOUT_OFFER_URL: "http://devel-bet-cashout-api.betika.private/offer"
+  CASHOUT_ROUTING_KEY: "cashout_bets"
+  CASHEDOUT_EXCHANGE: "cashedout_bets"
+  CASHEDOUT_ROUTING_KEY: "cashedout_bets"
+  CURRENCY_FORMAT: "Ksh"
+  DB_DRIVER: "mysql"
+  DEFAULT_TAX_RATE: "10"
+  DB_HOST: "10.34.111.111"
+  DB_NAME: "dev_betika_africa"
+  DB_PASSWORD: "4c5cKAeMvx6N58b%PuyfH7MbSak4MQ7cD"
+  DB_PORT: "3306"
+  DB_USER: "dev-mysql01_user"
+  DOMAIN_NAME: "betika.com"
+  ENABLE_CASHOUT_AMOUNT_VARIATION: "22.2"
+  ENABLE_WHT: "1"
+  LOG_FOLDER: "/apps/logs/cashout-engine/"
+  LOG_LEVEL: "6"
+  MAX_IDLE_CONNECTIONS: "60"
+  MAX_IDLE_CONNECTIONS_LIFETIME: "10"
+  MAX_OPEN_CONNECTIONS: "100"
+  MAX_OPEN_CONNECTIONS_LIFETIME: "50"
+  NOTIFICATION_CLIENT_ID: "INSOMNIA"
+  NOTIFICATION_CLIENT_SECRETE: "C5wfZ8GthVKpGt9PgGdpbJFe9ttmYxTY"
+  NOTIFICATION_RABBIT_HOST: "dev-rabbitmq01-service.betika.private"
+  NOTIFICATION_RABBIT_PASS: "TXJvMsiIl9TsmAQi"
+  NOTIFICATION_RABBIT_PORT: "5672"
+  NOTIFICATION_RABBIT_USER: "uof"
+  NOTIFICATION_SERVER_URL: "https://notify.dev01.int.betika.com/bet-consume"
+  PORT: "5000"
+  PREFETCH_COUNT: "1"
+  QUEUE_CHANNELS: "100"
+  RABBIT_HOST: "dev-rabbitmq01-service.betika.private"
+  RABBIT_PASS: "TXJvMsiIl9TsmAQi"
+  RABBIT_PORT: "5672"
+  RABBIT_USER: "uof"
+  RABBIT_VHOST: ""
+  REDIS_DB: "0"
+  REDIS_HOST: "dev-redis01-node01.betika.private:6379"
+  REDIS_PASSWORD: "RwN4rbsQdqdj3nLYUVBWB89udj8JXcMm"
+  SLEEP_TIME_SECONDS: "10"
+  TAX_API_ENABLED: "0"
+  TAX_API_URL: "https://dev-wallet-common-tax-gh-mtnm4zmsra-ey.a.run.app/api/v0/tax"
+  TAX_API_TOKEN: "1xTQJfnmv5Ek8f63o9U4Ct0WF59SGSap"
+  COUNTRY_CODE: "ET"
+  MINIMUM_AMOUNT_FOR_WHT: "1000"
+  APPLY_EXERCISE_TAX: "true"
+  EXERCISE_TAX: "15"
+
+service:
+  name: dev-cashout-engine
+  port: 5000
+  targetPort: 5000

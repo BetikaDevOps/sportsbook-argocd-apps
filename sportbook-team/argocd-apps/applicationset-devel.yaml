@@ -7,8 +7,8 @@ spec:
   generators:
     - list:
         elements:
-          #- name: betengine-reserve-api
-          #- name: sportsbook-bet-api
+          - name: sportsbook-cashout-engine
+          - name: sportsbook-bet-api
           - name: sportsbook-resulting-api
           #- name: sportsbook-bet-validation-api
           #- name: resulting-jackpots-engine-java
