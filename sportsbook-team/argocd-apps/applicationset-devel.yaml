@@ -16,14 +16,14 @@ spec:
     metadata:
       name: "{{name}}-devel"
     spec:
-      project: default
+      project: sportsbook-devel
       source:
         repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
         targetRevision: HEAD
-        path: sportbook-team/sportbook-chart
+        path: sportsbook-team/sportsbook-chart
         helm:
           valueFiles:
-            - ../sportbook-chart/values/devel/{{name}}.yaml
+            - ../sportsbook-chart/values/devel/{{name}}.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: devel
