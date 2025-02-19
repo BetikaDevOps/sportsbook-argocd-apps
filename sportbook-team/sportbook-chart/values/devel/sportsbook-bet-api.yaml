@@ -3,7 +3,7 @@ namespace: devel
 
 image:
   repository: nginx #my-docker-registry/sportsbook-bet-api
-  tag: stable-alpine
+  tag: stable-alpine-perl
 
 replicaCount: 1
 
