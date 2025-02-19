@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sportsbook.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "sportsbook.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+        - name: {{ .Values.appName }}
+          image: "{{ .Values.image.repository }}@{{ .Values.image.tag }}"
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.configMap.name }}

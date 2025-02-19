@@ -1,0 +1,67 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: sportbook-prod-appset
+  namespace: argocd
+spec:
+  generators:
+    # Default applications deployed to ALL prod environments
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - name: sportsbook-bet-api
+                - name: sportsbook-bet-validation-api
+                - name: resulting-jackpots-engine-java
+                - name: sportsbook-bet-builder-api
+                - name: sportsbook-bet-builder-consumers
+                - name: sportsbook-bet-cashout-api
+                - name: resulting-lost-bets-engine-java
+                - name: resulting-won-bets-engine-java
+                - name: sportsbook-award-jp-bonus-api
+                - name: sportsbook-cancel-mts-bet-consumer
+          - list:
+              elements:
+                - env: prod_ug
+                - env: prod_ke
+                - env: prod_cd
+
+    # Specific applications for certain environments
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - name: betengine-reserve-api
+          - list:
+              elements:
+                - env: prod_ke
+                - env: prod_cd
+
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - name: cashout-mts-publisher
+          - list:
+              elements:
+                - env: prod_cd
+
+  template:
+    metadata:
+      name: "{{name}}-{{env}}"
+    spec:
+      project: sportbook
+      source:
+        repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
+        targetRevision: HEAD
+        path: sportbook-chart
+        helm:
+          valueFiles:
+            - ../../values/{{env}}/{{name}}.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{env}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

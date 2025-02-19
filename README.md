@@ -24,7 +24,5 @@ sportbook/
 │── argocd-apps/                 # ArgoCD ApplicationSets for environments
 │   ├── applicationset-devel.yaml  # ApplicationSet for devel
 │   ├── applicationset-prod.yaml   # ApplicationSet for prod_ug, prod_ke, prod_cd
-│── .github/workflows/            # CI/CD pipelines for Helm deployment
-│   ├── helm-deploy.yml           # GitHub Actions pipeline
 │── .gitignore                    # Ignore unnecessary files
 │── README.md                     # Overview of the repo

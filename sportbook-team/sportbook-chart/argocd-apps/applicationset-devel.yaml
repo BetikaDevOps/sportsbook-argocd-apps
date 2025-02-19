@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: sportbook-devel-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          #- name: betengine-reserve-api
+          - name: sportsbook-bet-api
+          #- name: sportsbook-bet-validation-api
+          #- name: resulting-jackpots-engine-java
+  template:
+    metadata:
+      name: "{{name}}-devel"
+    spec:
+      project: sportbook
+      source:
+        repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
+        targetRevision: HEAD
+        path: sportbook-chart
+        helm:
+          valueFiles:
+            - ../../values/devel/{{name}}.yaml
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: devel
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

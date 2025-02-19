@@ -1,0 +1,55 @@
+appName: sportsbook-bet-api
+namespace: sportsbook-bet-api
+
+image:
+  repository: nginx #my-docker-registry/sportsbook-bet-api
+  tag: latest
+
+replicaCount: 1
+
+configMap:
+  name: sportsbook-bet-api-config
+
+envVars:
+  PORT: "8000"
+  API_MONITOR: "true"
+  API_PPROF: "false"
+  DB_HOST: "devel-proxysql01.betika.private"
+  DB_PASSWORD: "pO!5Nxxf0lqyrikyJFjF"
+  DB_PORT: "3306"
+  DB_SCHEMA: "dev_betika"
+  DB_USER: "dev-mysql01_app"
+  DB_MAX_OPEN_CON: "10"
+  DB_MAX_IDLE_CON: "2"
+  DB_MAX_OPEN_CON_LIFETIME: "60"
+  DB_MAX_IDLE_CON_LIFETIME: "60"
+  GCP_PROJECT: "betika-devel"
+  IS_DEV: "true"
+  LOG_LEVEL: "5"
+  REFRESH_TIME: "600"
+  REDIS_HOST: "devel-redissentinel01-service.betika.private"
+  REDIS_PORT: "6380"
+  REDIS_PASSWORD: "f0P0zhn6z6JeepxObhQx05cSnbfLbVui"
+  REDIS_DB: "0"
+  RedisGameTTL: "60000"
+  COUNTRY: "UG"
+  REDIS_IMPLEMENTATION: "SINGLE"
+  BET_VALIDATION_CONFIG_FILE: "dev-bet-validation-config.json"
+  INVALID_SELECTIONS: "Sorry Invalid Selections Please try again"
+  OUTCOMES_PRESENT: "Sorry Match seems to have been played"
+  RABBITMQ_PROTOCOL: "amqp"
+  RABBITMQ_HOST: "dev-rabbitmq01-service.betika.private"
+  RABBITMQ_VHOST: "/"
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_USERNAME: "admin"
+  RABBITMQ_PASSWORD: "T9o0kssrBCQhRQCEBXG56WHTLfATDKS2"
+  RABBITMQ_NO_MTS_EXCHANGE: "no-mts-bets"
+  RABBITMQ_NO_MTS_QUEUE: "no-mts-bets"
+  RABBITMQ_NO_MTS_ROUTING_KEY: "no-mts-bets"
+  RABBITMQ_NO_MTS_ROUTING_KEY_HEADER: ""
+  RABBITMQ_HEARTBEAT: "60"
+
+service:
+  name: sportsbook-bet-api
+  port: 8000
+  targetPort: 8000
