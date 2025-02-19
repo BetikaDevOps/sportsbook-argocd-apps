@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
         targetRevision: HEAD
-        path: sportbook-chart
+        path: sportbook-team/sportbook-chart
         helm:
           valueFiles:
             - ../sportbook-chart/values/devel/sportsbook-bet-api.yaml #../values/devel/{{name}}.yaml
