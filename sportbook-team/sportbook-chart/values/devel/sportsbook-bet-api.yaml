@@ -1,4 +1,4 @@
-appName: sportsbook-bet-api
+appName: bet-api
 namespace: devel
 
 image:
