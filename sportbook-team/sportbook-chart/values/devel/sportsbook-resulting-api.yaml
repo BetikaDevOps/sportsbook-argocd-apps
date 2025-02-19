@@ -1,0 +1,46 @@
+appName: sportsbook-resulting-api
+namespace: devel
+
+image:
+  repository: nginx 
+  tag: stable-alpine-perl
+
+replicaCount: 1
+
+configMap:
+  name: sportsbook-resulting-api-config
+
+envVars:
+  PORT: "8080"
+  API_MONITOR: "true"
+  API_PPROF: "false"
+  DB_HOST: "devel-proxysql01.betika.private"
+  DB_PASSWORD: "pO!5Nxxf0lqyrikyJFjF"
+  DB_PORT: "3306"
+  DB_SCHEMA: "dev_betika"
+  DB_USER: "dev-mysql01_app"
+  DB_MAX_OPEN_CON: "10"
+  DB_MAX_IDLE_CON: "2"
+  DB_MAX_OPEN_CON_LIFETIME: "60"
+  DB_MAX_IDLE_CON_LIFETIME: "60"
+  GCP_PROJECT: "betika-devel"
+  IS_DEV: "true"
+  LOG_LEVEL: "5"
+  REFRESH_TIME: "600"
+  RABBITMQ_PROTOCOL: "amqp"
+  RABBITMQ_HOST: "devel-rabbitmqservice01.betika.private"
+  RABBITMQ_VHOST: "/"
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_USERNAME: "devel_admin"
+  RABBITMQ_PASSWORD: "SIMd7V88Moskr2ipPFkYzKx2cDRcYOPP"
+  RABBITMQ_EXCHANGE: "uof_outcomes"
+  RABBITMQ_QUEUE: ""
+  RABBITMQ_ROUTING_KEY: "uof_outcomes"
+  RABBITMQ_ROUTING_KEY_HEADER: ""
+  RABBITMQ_HEARTBEAT: "60"
+  RABBITMQ_EXCHANGE_NEW: "uof_outcomes"
+
+service:
+  name: sportsbook-resulting-api
+  port: 8080
+  targetPort: 8080
