@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "sportsbook.labels" . | nindent 4 }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Values.appName }}
@@ -17,7 +17,8 @@ spec:
     spec:
       containers:
         - name: {{ .Values.appName }}
-          image: "{{ .Values.image.repository }}@{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"  # ✅ FIXED
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           envFrom:
             - configMapRef:
                 name: {{ .Values.configMap.name }}
