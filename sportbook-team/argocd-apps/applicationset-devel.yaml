@@ -22,7 +22,7 @@ spec:
         path: sportbook-team/sportbook-chart
         helm:
           valueFiles:
-            - ../sportbook-chart/values/devel/sportsbook-bet-api.yaml #../values/devel/{{name}}.yaml
+            - ../sportbook-chart/values/devel/{{name}}.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: devel

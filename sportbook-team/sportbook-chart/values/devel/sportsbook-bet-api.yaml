@@ -2,8 +2,8 @@ appName: sportsbook-bet-api
 namespace: devel
 
 image:
-  repository: nginx #my-docker-registry/sportsbook-bet-api
-  tag: stable-alpine-perl
+  repository: nginx
+  tag: "stable-alpine"
 
 replicaCount: 1
 
