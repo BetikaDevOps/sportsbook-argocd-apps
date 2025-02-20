@@ -1,5 +1,5 @@
 appName: bet-api
-namespace: sportsbook
+namespace: devel
 
 image:
   repository: nginx
