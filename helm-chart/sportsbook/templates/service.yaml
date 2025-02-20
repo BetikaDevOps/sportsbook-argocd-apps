@@ -17,6 +17,7 @@
 #       protocol: TCP
 
 
+{{- if or .Values.service.http.enabled .Values.service.grpc.enabled }}
 {{- if .Values.service.http.enabled }}
 ---
 apiVersion: v1
@@ -56,4 +57,6 @@ spec:
       targetPort: {{ .Values.service.grpc.targetPort }}
       protocol: TCP
 {{- end }}
+
+{{- else }}
 
