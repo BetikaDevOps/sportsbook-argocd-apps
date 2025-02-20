@@ -1,5 +1,5 @@
 appName: sportsbook-resulting-api
-namespace: sportsbook
+namespace: devel
 
 image:
   repository: nginx 
