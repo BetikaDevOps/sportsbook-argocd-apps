@@ -13,7 +13,6 @@ autoscaling:
 configMap:
   name: sportsbook-bet-api-config
 
-# Added Security Context for better security
 podSecurityContext: {}
 # podSecurityContext:
 #   runAsUser: 1000
@@ -26,7 +25,6 @@ securityContext: {}
 #   readOnlyRootFilesystem: false
 #   runAsNonRoot: true
 
-# Liveness and Readiness Probes (Health Checks)
 livenessProbe:
   enabled: false
   httpGet:
@@ -43,7 +41,6 @@ readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 10
 
-# Resource Limits (Prevent excessive resource consumption)
 resources:
   limits:
     cpu: 500m
@@ -51,7 +48,6 @@ resources:
   requests:
     cpu: 250m
     memory: 256Mi
-
 
 
 envVars:
