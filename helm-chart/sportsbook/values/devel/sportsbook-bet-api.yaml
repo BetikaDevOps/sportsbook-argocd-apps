@@ -95,7 +95,6 @@ envVars:
   RABBITMQ_HEARTBEAT: "60"
 
 service:
-  enabled: true
   name: sportsbook-bet-api
   port: 8000
   targetPort: 8000
