@@ -7,9 +7,46 @@ image:
   tag: "stable-alpine"
 
 replicaCount: 5
+autoscaling:
+  enabled: false
 
 configMap:
   name: sportsbook-bet-api-config
+
+# Added Security Context for better security
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+
+# Liveness and Readiness Probes (Health Checks)
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 8000
+  initialDelaySeconds: 3
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+# Resource Limits (Prevent excessive resource consumption)
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
 
 envVars:
   PORT: "8000"
