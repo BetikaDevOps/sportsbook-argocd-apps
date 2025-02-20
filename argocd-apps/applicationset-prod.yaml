@@ -9,9 +9,9 @@ spec:
         generators:
           - list:
               elements:
-                - name: sportsbook-cashout-engine
+                #- name: sportsbook-cashout-engine
                 - name: sportsbook-bet-api
-                - name: sportsbook-resulting-api
+                #- name: sportsbook-resulting-api
                 # - name: sportsbook-bet-validation-api
                 # - name: resulting-jackpots-engine-java
                 # - name: sportsbook-bet-builder-api
@@ -23,10 +23,10 @@ spec:
                 # - name: sportsbook-cancel-mts-bet-consumer
           - list:
               elements:
-                - env: devel #betika_ug
+                - env: betika-ug #betika_ug
                   server: https://kubernetes.default.svc
-                # - env: betika_ke
-                #   server: https://kubernetes.default.svc
+                - env: betika-tz
+                  server: https://kubernetes.default.svc
                 # - env: betika_cd
                 #   server: https://kubernetes.default.svc
 

@@ -1,0 +1,115 @@
+appName: bet-api
+namespace: betika-tz
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: "stable-alpine"
+
+replicaCount: 5
+autoscaling:
+  enabled: false
+
+configMap:
+  name: sportsbook-bet-api-config
+
+# Added Security Context for better security
+podSecurityContext: {}
+# podSecurityContext:
+#   runAsUser: 1000
+#   runAsGroup: 3000
+#   fsGroup: 2000
+
+securityContext: {}
+# securityContext:
+#   allowPrivilegeEscalation: false
+#   readOnlyRootFilesystem: false
+#   runAsNonRoot: true
+
+# Liveness and Readiness Probes (Health Checks)
+livenessProbe:
+  enabled: false
+  httpGet:
+    path: /healthz
+    port: 8000
+  initialDelaySeconds: 3
+  periodSeconds: 10
+
+readinessProbe:
+  enabled: false
+  httpGet:
+    path: /readyz
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+# Resource Limits (Prevent excessive resource consumption)
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+
+
+envVars:
+  PORT: "8000"
+  API_MONITOR: "true"
+  API_PPROF: "false"
+  DB_HOST: "devel-proxysql01.betika.private"
+  DB_PASSWORD: "pO!5Nxxf0lqyrikyJFjF"
+  DB_PORT: "3306"
+  DB_SCHEMA: "dev_betika"
+  DB_USER: "dev-mysql01_app"
+  DB_MAX_OPEN_CON: "10"
+  DB_MAX_IDLE_CON: "2"
+  DB_MAX_OPEN_CON_LIFETIME: "60"
+  DB_MAX_IDLE_CON_LIFETIME: "60"
+  GCP_PROJECT: "betika-devel"
+  IS_DEV: "true"
+  LOG_LEVEL: "5"
+  REFRESH_TIME: "600"
+  REDIS_HOST: "devel-redissentinel01-service.betika.private"
+  REDIS_PORT: "6380"
+  REDIS_PASSWORD: "f0P0zhn6z6JeepxObhQx05cSnbfLbVui"
+  REDIS_DB: "0"
+  RedisGameTTL: "60000"
+  COUNTRY: "UG"
+  REDIS_IMPLEMENTATION: "SINGLE"
+  BET_VALIDATION_CONFIG_FILE: "dev-bet-validation-config.json"
+  INVALID_SELECTIONS: "Sorry Invalid Selections Please try again"
+  OUTCOMES_PRESENT: "Sorry Match seems to have been played"
+  RABBITMQ_PROTOCOL: "amqp"
+  RABBITMQ_HOST: "dev-rabbitmq01-service.betika.private"
+  RABBITMQ_VHOST: "/"
+  RABBITMQ_PORT: "5672"
+  RABBITMQ_USERNAME: "admin"
+  RABBITMQ_PASSWORD: "T9o0kssrBCQhRQCEBXG56WHTLfATDKS2"
+  RABBITMQ_NO_MTS_EXCHANGE: "no-mts-bets"
+  RABBITMQ_NO_MTS_QUEUE: "no-mts-bets"
+  RABBITMQ_NO_MTS_ROUTING_KEY: "no-mts-bets"
+  RABBITMQ_NO_MTS_ROUTING_KEY_HEADER: ""
+  RABBITMQ_HEARTBEAT: "60"
+
+service:
+  http:
+    enabled: true
+    name: sportsbook-bet-api
+    port: 8000
+    targetPort: 8000
+    type: ClusterIP
+  grpc:
+    enabled: false
+    name: sportsbook-bet-api-grpc
+    type: ClusterIP
+    port: 9090
+    targetPort: 9090
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
