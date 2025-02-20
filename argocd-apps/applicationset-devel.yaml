@@ -23,7 +23,7 @@ spec:
         path: helm-chart/sportsbook
         helm:
           valueFiles:
-            - values/devel/sportsbook-bet-api.yaml #../helm-chart/sportsbook/values/devel/{{name}}.yaml
+            - values/devel/{{name}}.yaml 
       destination:
         server: https://kubernetes.default.svc
         namespace: devel

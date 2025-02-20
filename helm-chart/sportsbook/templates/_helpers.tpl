@@ -4,5 +4,5 @@ release: {{ .Release.Name }}
 {{- end }}
 
 {{- define "sportsbook.fullname" -}}
-{{ .Release.Name }}-{{ .Values.appName }}
+{{ .Release.Name }}
 {{- end }}
