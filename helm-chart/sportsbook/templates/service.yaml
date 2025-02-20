@@ -1,3 +1,4 @@
+{{- if .Values.service.http.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -14,3 +15,23 @@ spec:
       port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       protocol: TCP
+{{- end }}
+
+# #{{- if .Values.service.http.enabled }}
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: {{ .Values.service.http.name }}
+#   namespace: {{ .Values.namespace }}
+#   labels:
+#     {{- include "sportsbook.labels" . | nindent 4 }}
+# spec:
+#   selector:
+#     app: {{ .Values.appName }}
+#   type: {{ .Values.service.http.type }}
+#   ports:
+#     - name: http
+#       port: {{ .Values.service.http.port }}
+#       targetPort: {{ .Values.service.http.targetPort }}
+#       protocol: TCP
+# #{{- end }}
