@@ -21,24 +21,19 @@ spec:
       labels:
         app: {{ .Values.appName }}
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-
-      # ✅ Pod-Level Security Context
-      {{- with .Values.podSecurityContext }}
+      # ✅ Conditionally include pod-level securityContext
+      {{- if .Values.podSecurityContext }}
       securityContext:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       {{- end }}
 
       containers:
         - name: {{ .Values.appName }}
 
-          # ✅ Container-Level Security Context
-          {{- with .Values.securityContext }}
+          # ✅ Conditionally include container-level securityContext
+          {{- if .Values.securityContext }}
           securityContext:
-            {{- toYaml . | nindent 12 }}
+            {{- toYaml .Values.securityContext | nindent 12 }}
           {{- end }}
 
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -65,8 +60,6 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      volumes:
-        {{- toYaml .Values.volumes | nindent 8 }}
       nodeSelector:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
       affinity:
