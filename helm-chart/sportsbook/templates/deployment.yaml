@@ -21,7 +21,6 @@ spec:
       labels:
         app: {{ .Values.appName }}
     spec:
-      # ✅ Conditionally include pod-level securityContext
       {{- if .Values.podSecurityContext }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -29,8 +28,6 @@ spec:
 
       containers:
         - name: {{ .Values.appName }}
-
-          # ✅ Conditionally include container-level securityContext
           {{- if .Values.securityContext }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -46,13 +43,11 @@ spec:
             - configMapRef:
                 name: {{ .Values.configMap.name }}
 
-          # Conditionally include livenessProbe
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           {{- end }}
 
-          # Conditionally include readinessProbe
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}

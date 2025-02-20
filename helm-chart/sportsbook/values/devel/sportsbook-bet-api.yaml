@@ -98,3 +98,4 @@ service:
   name: sportsbook-bet-api
   port: 8000
   targetPort: 8000
+  type: ClusterIP
