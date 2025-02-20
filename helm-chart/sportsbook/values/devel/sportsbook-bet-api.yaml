@@ -99,3 +99,8 @@ service:
   port: 8000
   targetPort: 8000
   type: ClusterIP
+
+  # gRPC Configuration (Optional)
+  grpcEnabled: true  # Set to `false` to disable gRPC
+  grpcPort: 9090
+  grpcTargetPort: 9090
