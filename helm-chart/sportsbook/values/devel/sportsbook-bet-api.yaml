@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
   tag: "stable-alpine"
 
-replicaCount: 2
+replicaCount: 5
 autoscaling:
   enabled: false
 
@@ -110,7 +110,7 @@ service:
 
 autoscaling:
   enabled: true
-  minReplicas: 5
+  minReplicas: 1
   maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
