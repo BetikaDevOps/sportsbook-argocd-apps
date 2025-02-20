@@ -3,12 +3,46 @@ namespace: sportsbook #sportsbook
 
 image:
   repository: nginx
+  pullPolicy: IfNotPresent
   tag: 1.27-alpine3.21-perl
 
 replicaCount: 2
+autoscaling:
+  enabled: false
 
 configMap:
   name: dev-cashout-engine-config
+
+# Added Security Context for better security
+podSecurityContext: {}
+
+securityContext: {}
+
+# Liveness and Readiness Probes (Health Checks)
+livenessProbe:
+  enabled: false
+  httpGet:
+    path: /healthz
+    port: 8000
+  initialDelaySeconds: 3
+  periodSeconds: 10
+
+readinessProbe:
+  enabled: false
+  httpGet:
+    path: /readyz
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+# Resource Limits (Prevent excessive resource consumption)
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
 
 envVars:
   BETIKA_AFRICA_SUPPORT: "true"
@@ -69,3 +103,24 @@ service:
   name: dev-cashout-engine
   port: 5000
   targetPort: 5000
+
+service:
+  http:
+    enabled: true
+    name: dev-cashout-engine
+    port: 8000
+    targetPort: 8000
+    type: ClusterIP
+  grpc:
+    enabled: false
+    name: sportsbook-bet-api-grpc
+    type: ClusterIP
+    port: 9090
+    targetPort: 9090
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80

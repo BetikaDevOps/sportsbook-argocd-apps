@@ -5,63 +5,68 @@ metadata:
   namespace: argocd
 spec:
   generators:
-    # Default applications deployed to ALL prod environments
     - matrix:
         generators:
           - list:
               elements:
+                - name: sportsbook-cashout-engine
                 - name: sportsbook-bet-api
-                - name: sportsbook-bet-validation-api
-                - name: resulting-jackpots-engine-java
-                - name: sportsbook-bet-builder-api
-                - name: sportsbook-bet-builder-consumers
-                - name: sportsbook-bet-cashout-api
-                - name: resulting-lost-bets-engine-java
-                - name: resulting-won-bets-engine-java
-                - name: sportsbook-award-jp-bonus-api
-                - name: sportsbook-cancel-mts-bet-consumer
+                - name: sportsbook-resulting-api
+                # - name: sportsbook-bet-validation-api
+                # - name: resulting-jackpots-engine-java
+                # - name: sportsbook-bet-builder-api
+                # - name: sportsbook-bet-builder-consumers
+                # - name: sportsbook-bet-cashout-api
+                # - name: resulting-lost-bets-engine-java
+                # - name: resulting-won-bets-engine-java
+                # - name: sportsbook-award-jp-bonus-api
+                # - name: sportsbook-cancel-mts-bet-consumer
           - list:
               elements:
-                - env: prod_ug
-                - env: prod_ke
-                - env: prod_cd
+                - env: devel #betika_ug
+                  server: https://kubernetes.default.svc
+                # - env: betika_ke
+                #   server: https://kubernetes.default.svc
+                # - env: betika_cd
+                #   server: https://kubernetes.default.svc
 
     # Specific applications for certain environments
-    - matrix:
-        generators:
-          - list:
-              elements:
-                - name: betengine-reserve-api
-          - list:
-              elements:
-                - env: prod_ke
-                - env: prod_cd
+    # - matrix:
+    #     generators:
+    #       - list:
+    #           elements:
+    #             - name: betengine-reserve-api
+    #       - list:
+    #           elements:
+    #             - env: betika_ke
+    #             - env: betika_cd
 
-    - matrix:
-        generators:
-          - list:
-              elements:
-                - name: cashout-mts-publisher
-          - list:
-              elements:
-                - env: prod_cd
+    # - matrix:
+    #     generators:
+    #       - list:
+    #           elements:
+    #             - name: cashout-mts-publisher
+    #       - list:
+    #           elements:
+    #             - env: betika_cd
 
   template:
     metadata:
       name: "{{name}}-{{env}}"
     spec:
-      project: sportbook
+      project: sportsbook-production
       source:
         repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
         targetRevision: HEAD
-        path: sportbook-chart
+        path: helm-chart/sportsbook
         helm:
           valueFiles:
-            - ../../values/{{env}}/{{name}}.yaml
+            - values/{{env}}/{{name}}.yaml
       destination:
-        server: https://kubernetes.default.svc
+        server:  "{{server}}" #https://kubernetes.default.svc
         namespace: "{{env}}"
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        automated: {}  # No auto-sync
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true  
