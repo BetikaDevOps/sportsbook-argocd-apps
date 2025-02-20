@@ -16,7 +16,7 @@ spec:
     metadata:
       name: "{{name}}-devel"
     spec:
-      project: default #sportsbook-devel
+      project: sportsbook-devel #sportsbook-devel
       source:
         repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
         targetRevision: HEAD
