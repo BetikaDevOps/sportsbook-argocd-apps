@@ -19,10 +19,10 @@ podSecurityContext:
   runAsGroup: 3000
   fsGroup: 2000
 
-securityContext:
-  allowPrivilegeEscalation: false
-  readOnlyRootFilesystem: false
-  runAsNonRoot: true
+# securityContext:
+#   allowPrivilegeEscalation: false
+#   readOnlyRootFilesystem: false
+#   runAsNonRoot: true
 
 # Liveness and Readiness Probes (Health Checks)
 livenessProbe:
