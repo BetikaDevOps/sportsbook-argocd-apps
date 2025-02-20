@@ -7,9 +7,9 @@ spec:
   generators:
     - list:
         elements:
-          #- name: sportsbook-cashout-engine
+          - name: sportsbook-cashout-engine
           - name: sportsbook-bet-api
-          #- name: sportsbook-resulting-api
+          - name: sportsbook-resulting-api
           #- name: sportsbook-bet-validation-api
           #- name: resulting-jackpots-engine-java
   template:
@@ -23,7 +23,7 @@ spec:
         path: helm-chart/sportsbook
         helm:
           valueFiles:
-            - ../helm-chart/sportsbook/values/devel/{{name}}.yaml
+            - values/devel/sportsbook-bet-api.yaml #../helm-chart/sportsbook/values/devel/{{name}}.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: devel
