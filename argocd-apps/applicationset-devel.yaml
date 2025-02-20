@@ -19,14 +19,14 @@ spec:
       project: sportsbook-devel
       source:
         repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
-        targetRevision: HEAD
-        path: sportsbook-team/sportsbook-chart
+        targetRevision: new-structure #HEAD
+        path: helm-chart/sportsbook
         helm:
           valueFiles:
-            - ../sportsbook-chart/values/devel/{{name}}.yaml
+            - ../helm-chart/sportsbook/values/devel/{{name}}.yaml
       destination:
         server: https://kubernetes.default.svc
-        namespace: devel
+        namespace: sportsbook
       syncPolicy:
         automated:
           prune: true
