@@ -9,7 +9,7 @@ metadata:
 spec:
   selector:
     app: {{ .Values.appName }}
-  type: {{ .Values.service.type }} 
+  type: {{ .Values.service.http.type }} 
   ports:
     - name: http
       port: {{ .Values.service.http.port }}
