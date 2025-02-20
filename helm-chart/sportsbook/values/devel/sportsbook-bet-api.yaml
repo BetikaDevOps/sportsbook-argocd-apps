@@ -104,10 +104,12 @@ envVars:
 service:
   http:
     enabled: true
-    name: sportsbook-bet-api-http
+    name: ""
     type: ClusterIP
-    port: 8000
-    targetPort: 8000
+    port: 80
+    targetPort: 8080
+    annotations: {}
+    # nodePort: 30080  # Uncomment if using NodePort
 
   # grpc:
   #   enabled: false  # Set to false if you don't want a gRPC service
