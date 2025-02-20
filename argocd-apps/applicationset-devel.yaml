@@ -7,23 +7,23 @@ spec:
   generators:
     - list:
         elements:
-          - name: sportsbook-cashout-engine
+          #- name: sportsbook-cashout-engine
           - name: sportsbook-bet-api
-          - name: sportsbook-resulting-api
+          #- name: sportsbook-resulting-api
           #- name: sportsbook-bet-validation-api
           #- name: resulting-jackpots-engine-java
   template:
     metadata:
       name: "{{name}}-devel"
     spec:
-      project: sportsbook-devel
+      project: default #sportsbook-devel
       source:
         repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
-        targetRevision: HEAD
-        path: sportsbook-team/sportsbook-chart
+        targetRevision: new-structure #HEAD
+        path: helm-chart/sportsbook
         helm:
           valueFiles:
-            - ../sportsbook-chart/values/devel/{{name}}.yaml
+            - ../helm-chart/sportsbook/values/devel/{{name}}.yaml
       destination:
         server: https://kubernetes.default.svc
         namespace: devel

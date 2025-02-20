@@ -1,5 +1,5 @@
 appName: dev-cashout-engine
-namespace: devel #sportsbook
+namespace: sportsbook #sportsbook
 
 image:
   repository: nginx
