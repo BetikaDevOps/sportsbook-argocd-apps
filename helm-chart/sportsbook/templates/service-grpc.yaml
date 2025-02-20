@@ -9,7 +9,7 @@ metadata:
 spec:
   selector:
     app: {{ .Values.appName }}
-  type: {{ .Values.service.grpc.type }}
+  type: {{ .Values.service.grpc.type }} 
   ports:
     - name: grpc
       port: {{ .Values.service.grpc.port }}
