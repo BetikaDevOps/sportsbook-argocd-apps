@@ -94,22 +94,22 @@ envVars:
   RABBITMQ_NO_MTS_ROUTING_KEY_HEADER: ""
   RABBITMQ_HEARTBEAT: "60"
 
-# service:
-#   #enabled: true
-#   name: sportsbook-bet-api
-#   port: 8000
-#   targetPort: 8000
-#   type: ClusterIP
-
 service:
-  http:
-    enabled: true
-    name: ""
-    type: ClusterIP
-    port: 80
-    targetPort: 8080
-    annotations: {}
-    # nodePort: 30080  # Uncomment if using NodePort
+  enabled: true
+  name: sportsbook-bet-api
+  port: 8000
+  targetPort: 8000
+  type: ClusterIP
+
+# service:
+#   http:
+#     enabled: true
+#     name: ""
+#     type: ClusterIP
+#     port: 80
+#     targetPort: 8080
+#     annotations: {}
+#     # nodePort: 30080  # Uncomment if using NodePort
 
   # grpc:
   #   enabled: false  # Set to false if you don't want a gRPC service
