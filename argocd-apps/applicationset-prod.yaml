@@ -4,6 +4,12 @@ metadata:
   name: sportbook-prod-appset
   namespace: argocd
 spec:
+  template:
+    metadata:
+      name: "sportbook-{{path.basename}}"  # e.g., ussd-drc-devel, ussd-drc-prod_cd
+      annotations:
+        argocd.argoproj.io/sync-wave: "1"
+        argocd.argoproj.io/health-status: "Healthy"
   generators:
     - matrix:
         generators:

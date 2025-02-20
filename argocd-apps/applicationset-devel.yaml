@@ -19,7 +19,7 @@ spec:
       project: sportsbook-devel #sportsbook-devel
       source:
         repoURL: "https://github.com/BetikaDevOps/sportsbook-argocd-apps.git"
-        targetRevision: HEAD
+        targetRevision: dev #HEAD
         path: helm-chart/sportsbook
         helm:
           valueFiles:
