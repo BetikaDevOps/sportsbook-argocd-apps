@@ -103,7 +103,7 @@ envVars:
 
 service:
   http:
-    enabled: true
+    #enabled: true
     name: sportsbook-bet-api-http
     type: ClusterIP
     port: 8000
