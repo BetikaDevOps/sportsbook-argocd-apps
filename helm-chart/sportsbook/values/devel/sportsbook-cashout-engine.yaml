@@ -8,7 +8,7 @@ image:
 
 replicaCount: 1
 autoscaling:
-  enabled: false
+  enabled: true
 
 configMap:
   name: dev-cashout-engine-config
